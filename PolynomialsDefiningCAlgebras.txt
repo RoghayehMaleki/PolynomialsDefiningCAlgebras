@@ -1,0 +1,577 @@
+########################################################################
+#
+# Polynomials defining C-algebras of a given rank and involution type
+# by Allen Herman and Roghayeh Maleki, September 2022. 
+#
+# -----------------
+#
+# Below are GAP functions that produce the complete list of multivariate polynomial identities # that must be satisfied by the entries of the regular matrices of a C-algebra of the indicated 
+# rank and involution type.  That is, these polynomials must evaluate to 0 when the entries 
+# of the regular matrices of a C-algebra of the given rank and involution type are substituted
+# for their variables. 
+#
+# Currently the file includes functions for C-algebras of all types for ranks 3, 4, and 5, 
+# and for the symmetric rank 6 type. (The functions here are for commutative C-algebras.)  
+# 
+# To use these functions and obtain the defining lists of polynomials, you should  
+#    (Step 1) define a list of sufficiently many variables: 
+#    gap> x:=[]; for i in [1..55] do x[i]:=Indeterminate(Rationals,i); od; 
+#    (Step 2) apply the desired function to your list of variables: 
+#    gap> V:=PolynomialsForCAlgebrasRank6S(x);; <--this gives a list of 541 polynomials! 
+# 
+##########################################
+##########################################
+PolynomialsForCAlgebrasRank3A:=function(L)
+local B0,B1,B2,T0,T1,T2,T3,T4,T5,T6,T7,T8,T9,T;
+
+B0:=IdentityMat(3);
+
+B1:=[[0,0,L[2]],[1,L[1],L[2]-L[1]-1],[0,L[1]+1,L[2]-L[1]-1]];
+
+B2:=[[0,L[2],0],[0,L[2]-L[1]-1,L[1]+1],[1,L[2]-L[1]-1,L[1]]];
+
+T1:=B1^2-((L[1])*B1+(L[1]+1)*B2);
+T1:=Concatenation(T1);
+T2:=B1*B2-(L[2]*B0+(L[1])*B1+(L[1])*B2);
+T2:=Concatenation(T2);
+T0:=Concatenation(T1,T2);
+T3:=B2^2-((L[1]+1)*B1+(L[1])*B2);
+T3:=Concatenation(T3);
+T0:=Concatenation(T0,T3);
+T4:=B1*B2-B2*B1; 
+T4:=Concatenation(T4);
+T0:=Concatenation(T0,T4);
+
+T:=AsSet(T0);
+
+return T; 
+end; 
+########################################
+############################################
+PolynomialsForCAlgebrasRank3S:=function(L)
+local B0,B1,B2,T0,T1,T2,T3,T4,T5,T6,T7,T8,T9,T;
+
+B0:=IdentityMat(3);
+
+B1:=[[0,L[3],0],[1,L[3]-L[1]-1,L[1]],[0,L[3]-L[2],L[2]]];
+
+B2:=[[0,0,L[4]],[0,L[1],L[4]-L[1]],[1,L[2],L[4]-L[2]-1]];
+
+T1:=B1^2-(L[3]*B0+(L[3]-L[1]-1)*B1+(L[3]-L[2])*B2);
+T1:=Concatenation(T1);
+T2:=B1*B2-(L[1]*B1+L[2]*B2);
+T2:=Concatenation(T2);
+T0:=Concatenation(T1,T2);
+T3:=B2^2-(L[4]*B0+(L[4]-L[1])*B1+(L[4]-L[2]-1)*B2);
+T3:=Concatenation(T3);
+T0:=Concatenation(T0,T3);
+T4:=B1*B2-B2*B1; 
+T4:=Concatenation(T4);
+T0:=Concatenation(T0,T4);
+
+T:=AsSet(T0);
+
+return T; 
+end; 
+########################################
+############################################
+PolynomialsForCAlgebrasRank4A:=function(L)
+local B0,B1,B2,B3,T0,T1,T2,T3,T4,T5,T6,T7,T8,T9,T;
+
+B0:=IdentityMat(4);
+
+B1:=[[0,L[6],0,0],[1,L[6]-2*L[1]-1,L[1],L[1]],[0,L[6]-L[2]-L[3],L[2],L[3]],[0,L[6]-L[2]-L[3],L[3],L[2]]];
+
+B2:=[[0,0,0,L[7]],[0,L[1],L[7]-L[1]-L[4],L[4]],[1,L[2],L[7]-1-L[2]-L[5],L[5]],[0,L[3],L[7]-L[3]-L[5],L[5]]];
+
+B3:=[[0,0,L[7],0],[0,L[1],L[4],L[7]-L[1]-L[4]],[0,L[3],L[5],L[7]-L[3]-L[5]],[1,L[2],L[5],L[7]-1-L[2]-L[5]]]; 
+
+T1:=B1^2-(L[6]*B0+(L[6]-2*L[1]-1)*B1+(L[6]-L[2]-L[3])*B2+(L[6]-L[2]-L[3])*B3);
+T1:=Concatenation(T1);
+T2:=B1*B2-(L[1]*B1+L[2]*B2+L[3]*B3);
+T2:=Concatenation(T2);
+T0:=Concatenation(T1,T2);
+T3:=B1*B3-(L[1]*B1+L[3]*B2+L[2]*B3); 
+T3:=Concatenation(T3);
+T0:=Concatenation(T0,T3);
+T4:=B2^2-(L[7]-L[1]-L[4])*B1-(L[7]-1-L[2]-L[5])*B2-(L[7]-L[3]-L[5])*B3; 
+T4:=Concatenation(T4);
+T0:=Concatenation(T0,T4);
+T5:=B2*B3-L[7]*B0-L[4]*B1-L[5]*B2-L[5]*B3; 
+T5:=Concatenation(T5);
+T0:=Concatenation(T0,T5);
+T6:=B3^2-(L[7]-L[1]-L[4])*B1-(L[7]-L[3]-L[5])*B2-(L[7]-1-L[2]-L[5])*B3;
+T6:=Concatenation(T6);
+T0:=Concatenation(T0,T6);
+T7:=B1*B2-B2*B1;
+T7:=Concatenation(T7);
+T0:=Concatenation(T0,T7);
+T8:=B1*B3-B3*B1;
+T8:=Concatenation(T8);
+T0:=Concatenation(T0,T8);
+T9:=B2*B3-B3*B2;
+T9:=Concatenation(T9);
+T0:=Concatenation(T0,T9);
+
+T:=AsSet(T0); 
+
+return T; 
+end; 
+########################################
+
+PolynomialsForCAlgebrasRank4S:=function(L)
+local B0,B1,B2,B3,T0,T1,T2,T3,T4,T5,T6,T7,T8,T9,T;
+
+B0:=IdentityMat(4);
+
+B1:=[[0,L[10],0,0],[1,L[10]-L[1]-L[4]-1,L[1],L[4],],[0,L[10]-L[2]-L[5],L[2],L[5]],[0,L[10]-L[3]-L[6],L[3],L[6]]];
+
+B2:=[[0,0,L[11],0],[0,L[1],L[11]-L[1]-L[7],L[7]],[1,L[2],L[11]-L[2]-L[8]-1,L[8]],[0,L[3],L[11]-L[3]-L[9],L[9]]];
+
+B3:=[[0,0,0,L[12]],[0,L[4],L[7],L[12]-L[7]-L[4]],[0,L[5],L[8],L[12]-L[8]-L[5]],[1,L[6],L[9],L[12]-L[9]-L[6]-1]];
+T1:=B1^2-(L[10]*B0+(L[10]-L[1]-L[4]-1)*B1+(L[10]-L[2]-L[5])*B2+(L[10]-L[3]-L[6])*B3);
+T1:=Concatenation(T1);
+T2:=B1*B2-(L[1]*B1+L[2]*B2+L[3]*B3);
+T2:=Concatenation(T2);
+T0:=Concatenation(T1,T2);
+T3:=B1*B3-(L[4]*B1+L[5]*B2+L[6]*B3);
+T3:=Concatenation(T3);
+T0:=Concatenation(T0,T3);
+T4:=B2^2-(L[11]*B0+(L[11]-L[1]-L[7])*B1+(L[11]-L[2]-L[8]-1)*B2+(L[11]-L[3]-L[9])*B3);
+T4:=Concatenation(T4);
+T0:=Concatenation(T0,T4);
+T5:=B2*B3-(L[7]*B1+L[8]*B2+L[9]*B3); 
+T5:=Concatenation(T5);
+T0:=Concatenation(T0,T5);
+T6:=B3^2-(L[12]*B0+(L[12]-L[4]-L[7])*B1+(L[12]-L[5]-L[8])*B2+(L[12]-L[6]-L[9]-1)*B3);
+T6:=Concatenation(T6);
+T0:=Concatenation(T0,T6);
+T7:=B1*B2-B2*B1; 
+T7:=Concatenation(T7);
+T0:=Concatenation(T0,T7);
+T8:=B1*B3-B3*B1;
+T8:=Concatenation(T8);
+T0:=Concatenation(T0,T8);
+T9:=B2*B3-B3*B2;
+T9:=Concatenation(T9);
+T0:=Concatenation(T0,T9);
+
+T:=AsSet(T0); 
+
+return T; 
+end; 
+########################################
+PolynomialsForCAlgebrasRank5A2:=function(L)
+local B0,B1,B2,B3,B4,T0,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22,T;
+
+B0:=IdentityMat(5);
+
+B1:=[[ 0, 0, L[17], 0, 0], 
+     [1, L[1], L[17]- L[1] -L[5] -L[9] -1, L[5], L[9]], 
+     [0, L[2], L[17]- L[2] -L[6] -L[10], L[6], L[10]], 
+     [0, L[3], L[17]- L[3] -L[7] -L[11], L[7], L[11]], 
+     [0, L[4], L[17]- L[4]-L[8]-L[12], L[8], L[12]]];
+
+B2:=[[ 0, L[17], 0, 0, 0], 
+     [0, L[17]- L[2] -L[6] -L[10], L[2], L[10], L[6]], 
+     [1, L[17]- L[1] -L[5] -L[9]-1, L[1], L[9], L[5]], 
+     [0, L[17]- L[4] -L[8] -L[12], L[4], L[12], L[8]], 
+     [0, L[17]- L[3]-L[7]-L[11], L[3], L[11], L[7]]];
+
+B3:=[[ 0, 0, 0, 0, L[18]], 
+     [0, L[5], L[10], L[13], L[18]-L[5] -L[10] -L[13]], 
+     [0, L[6], L[9], L[14], L[18]-L[6] -L[9] -L[14]], 
+     [1, L[7], L[12], L[15], L[18]-L[7] -L[12] -L[15]-1], 
+     [0, L[8], L[11], L[16], L[18]-L[8] -L[11] -L[16]]];
+
+B4:=[[ 0, 0, 0, L[18], 0], 
+     [0, L[9], L[6], L[18]-L[6] -L[9] -L[14], L[14]], 
+     [0, L[10], L[5], L[18]-L[5] -L[10] -L[13], L[13]], 
+     [0, L[11], L[8], L[18]-L[8] -L[11] -L[16], L[16]], 
+     [1, L[12], L[7], L[18]-L[7] -L[12] -L[15]-1, L[15]]];
+
+T1:=B1^2- (L[1]*B1+L[2]*B2+L[3]*B3+L[4]*B4);
+T1:=Concatenation(T1);
+
+T2:=B1*B2- (L[17]*B0+(L[17]- L[1] -L[5] -L[9]-1)*B1+(L[17]- L[2] -L[6] -L[10])*B2+(L[17]- L[3]-L[7]-L[11])*B3+(L[17]- L[4] -L[8] -L[12])*B4);
+T2:=Concatenation(T2);
+
+T3:=B1*B3- (L[5]*B1+L[6]*B2+L[7]*B3+L[8]*B4);
+T3:=Concatenation(T3);
+
+T4:=B1*B4- (L[9]*B1+L[10]*B2+L[11]*B3+L[12]*B4);
+T4:=Concatenation(T4);
+
+T5:=B2*B1- (L[17]*B0+(L[17]- L[2] -L[6] -L[10])*B1+(L[17]- L[1] -L[5] -L[9]-1)*B2+(L[17]- L[4] -L[8] -L[12])*B3+(L[17]- L[3]-L[7]-L[11])*B4);
+T5:=Concatenation(T5);
+
+T6:=B2^2- (L[2]*B1+L[1]*B2+L[4]*B3+L[3]*B4);
+T6:=Concatenation(T6);
+
+T7:=B2*B3- (L[10]*B1+L[9]*B2+L[12]*B3+L[11]*B4);
+T7:=Concatenation(T7);
+
+T8:=B2*B4- (L[6]*B1+L[5]*B2+L[8]*B3+L[7]*B4);
+T8:=Concatenation(T8);
+
+T9:=B3*B1- (L[5]*B1+L[6]*B2+L[7]*B3+L[8]*B4);
+T9:=Concatenation(T9);
+
+T10:=B3*B2- (L[10]*B1+L[9]*B2+L[12]*B3+L[11]*B4);
+T10:=Concatenation(T10);
+
+T11:=B3^2- (L[13]*B1+L[14]*B2+L[15]*B3+L[16]*B4);
+T11:=Concatenation(T11);
+
+T12:=B3*B4- (L[18]*B0+(L[18]-L[5] -L[10] -L[13])*B1+(L[18]-L[6] -L[9] -L[14])*B2+(L[18]-L[7] -L[12] -L[15]-1)*B3+(L[18]-L[8] -L[11] -L[16])*B4);
+T12:=Concatenation(T12);
+
+T13:=B4*B1- (L[9]*B1+L[10]*B2+L[11]*B3+L[12]*B4);
+T13:=Concatenation(T13);
+
+T14:=B4*B2- (L[6]*B1+L[5]*B2+L[8]*B3+L[7]*B4);
+T14:=Concatenation(T14);
+
+T15:=B4*B3- (L[18]*B0+(L[18]-L[6] -L[9] -L[14])*B1+(L[18]-L[5] -L[10] -L[13])*B2+(L[18]-L[8] -L[11] -L[16])*B3+(L[18]-L[7] -L[12] -L[15]-1)*B4);
+T15:=Concatenation(T15);
+
+T16:=B4^2- (L[14]*B1+L[13]*B2+L[16]*B3+L[15]*B4);
+T16:=Concatenation(T16);
+
+T17:=B1*B2-B2*B1;
+T17:=Concatenation(T17);
+
+T18:=B1*B3-B3*B1;
+T18:=Concatenation(T18);
+
+T19:=B1*B4-B4*B1;
+T19:=Concatenation(T19);
+
+T20:=B2*B3-B3*B2;
+T20:=Concatenation(T20); 
+
+T21:=B2*B4-B4*B2;
+T21:=Concatenation(T21);
+
+T22:=B3*B4-B4*B3;
+T22:=Concatenation(T22);
+
+T0:=Concatenation(T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22);
+
+T:=AsSet(T0); 
+
+return T; 
+end; 
+########################################
+PolynomialsForCAlgebrasRank5A1:=function(L)
+local B0,B1,B2,B3,B4,T0,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12, T13,T14,T15,T16,T;
+
+B0:=IdentityMat(5);
+
+B1:=[[0,L[17],0,0,0],[1,L[17]-L[1]-2*L[5]-1,L[1],L[5],L[5]],[0,L[17]-L[2]-2*L[6],L[2],L[6],L[6]],[0,L[17]-L[3]-L[7]-L[8],L[3],L[7],L[8]],[0,L[17]-L[4]-L[7]-L[8],L[4],L[8],L[7]]];
+
+B2:=[[0,0,L[18],0,0],[0,L[1],L[18]-L[1]-2*L[9],L[9],L[9]],[1,L[2],L[18]-L[2]-2*L[10]-1,L[10],L[10]],[0,L[4],L[18]-L[4]-L[11]-L[12],L[11],L[12]],[0,L[3],L[18]-L[3]-L[11]-L[12],L[12],L[11]]];
+
+B3:=[[0,0,0,0,L[19]],[0,L[5],L[9],L[13],L[19]-L[5]-L[9]-L[13]],[0,L[6],L[10],L[14],L[19]-L[6]-L[10]-L[14]],[1,L[7],L[11],L[15],L[19]-L[7]-L[11]-L[15]-1],[0,L[8],L[12],L[16],L[19]-L[8]-L[12]-L[16]]];
+
+B4:=[[0,0,0,L[19],0],[0,L[5],L[9],L[19]-L[5]-L[9]-L[13],L[13]],[0,L[6],L[10],L[19]-L[6]-L[10]-L[14],L[14]],[0,L[8],L[12],L[19]-L[8]-L[12]-L[16],L[16]],[1,L[7],L[11] ,L[19]-L[7]-L[11]-L[15]-1,L[15]]];
+
+T1:=B1^2- (L[17]*B0+(L[17]- L[1] -2*L[5]-1)*B1+(L[17]- L[2]-2*L[6])*B2+(L[17]-L[3]- L[7]-L[8])*B3+(L[17]- L[4] - L[7]-L[8])*B4);
+T1:=Concatenation(T1);
+T2:=B1*B2- (L[1]*B1+L[2]*B2+L[3]*B3+L[4]*B4);
+T2:=Concatenation(T2);
+T0:=Concatenation(T1,T2);
+T3:=B1*B3-(L[5]*B1+L[6]*B2+L[7]*B3+L[8]*B4);
+T3:=Concatenation(T3);
+T0:=Concatenation(T0,T3);
+T4:=B1*B4-(L[5]*B1+L[6]*B2+L[8]*B3+L[7]*B4);
+T4:=Concatenation(T4);
+T0:=Concatenation(T0,T4);
+T5:=B2*B1-(L[1]*B1+L[2]*B2+L[4]*B3+L[3]*B4);
+T5:=Concatenation(T5);
+T0:=Concatenation(T0,T5);
+T6:=B2^2-(L[18]*B0+(L[18]-L[2] -2*L[9])*B1+(L[18]-L[2] -2*L[10]-1)*B2+(L[18]-L[4] -L[11] -L[12])*B3+(L[18]-L[3] -L[11] -L[12])*B4);
+T6:=Concatenation(T6);
+T0:=Concatenation(T0,T6);
+T7:=B2*B3- (L[9]*B1+L[10]*B2+L[11]*B3+L[12]*B4);
+T7:=Concatenation(T7);
+T0:=Concatenation(T0,T7);
+T8:=B2*B4- (L[9]*B1+L[10]*B2+L[12]*B3+L[11]*B4);
+T8:=Concatenation(T8);
+T0:=Concatenation(T0,T8);
+T9:=B3*B1-B1*B3;
+T9:=Concatenation(T9);
+T0:=Concatenation(T0,T9);
+T10:=B3*B2-B2*B3;
+T10:=Concatenation(T10);
+T0:=Concatenation(T0,T10);
+T11:=B3^2- (L[13]*B1+L[14]*B2+L[15]*B3+L[16]*B4);
+T11:=Concatenation(T11);
+T0:=Concatenation(T0,T11);
+T12:=B3*B4- (L[19]*B0+(L[19]-L[5] -L[9] -L[13])*B1+(L[19]-L[6] -L[10] -L[14])*B2+(L[19]-L[7] -L[11] -L[15]-1)*B3+(L[19]-L[8] -L[12] -L[16])*B4);
+T12:=Concatenation(T12);
+T0:=Concatenation(T0,T12);
+T13:=B4*B1-B1*B4;
+T13:=Concatenation(T13);
+T0:=Concatenation(T0,T13);
+T14:=B4*B2-B2*B4;
+T14:=Concatenation(T14);
+T0:=Concatenation(T0,T14);
+T15:=B4*B3- (L[19]*B0+(L[19]-L[5] -L[9] -L[13])*B1+(L[19]-L[6]-L[10]-L[14])*B2+(L[19]-L[8] -L[12] -L[16])*B3+(L[19]-L[7]-L[11]-L[15]-1)*B4);
+T15:=Concatenation(T15);
+T0:=Concatenation(T0,T15);
+T16:=B4^2 -(L[13]*B1+L[14]*B2+L[16]*B3+L[15]*B4);
+T16:=Concatenation(T16);
+T0:=Concatenation(T0,T16);
+
+
+T:=AsSet(T0); 
+
+return T; 
+end; 
+########################################
+PolynomialsForCAlgebrasRank5S:=function(L)
+local B0,B1,B2,B3,B4,T0,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T;
+
+B0:=IdentityMat(5);
+
+B1:=[[0,L[25],0,0,0],
+    [1,L[25]-L[1]-L[5]-L[9]-1,L[1],L[5],L[9]],
+    [0,L[25]-L[2]-L[6]-L[10], L[2],L[6],L[10]],
+    [0,L[25]-L[3]-L[7]-L[11], L[3],L[7],L[11]],
+    [0,L[25]-L[4]-L[8]-L[12], L[4],L[8],L[12]]];
+
+B2:=[[0,0,L[26],0,0],
+     [0,L[1],L[26]-L[1]-L[13]-L[17],L[13],L[17]],
+     [1,L[2],L[26]-L[2]-L[14]-L[18]-1,L[14],L[18]],
+     [0,L[3],L[26]-L[3]-L[15]-L[19],L[15],L[19]],
+     [0,L[4],L[26]-L[4]-L[16]-L[20],L[16],L[20]]];
+
+B3:=[[0,0,0,L[27],0],
+     [0,L[5],L[13],L[27]-L[5]-L[13]-L[21],L[21]],
+     [0,L[6],L[14],L[27]-L[6]-L[14]-L[22],L[22]],
+     [1,L[7],L[15],L[27]-L[7]-L[15]-L[23]-1,L[23]],
+     [0,L[8],L[16],L[27]-L[8]-L[16]-L[24],L[24]]];
+
+B4:=[[0,0,0,0,L[28]],
+     [0,L[9],L[17],L[21],L[28]-L[9]-L[17]-L[21]],
+     [0,L[10],L[18],L[22],L[28]-L[10]-L[18]-L[22]],
+     [0,L[11],L[19],L[23],L[28]-L[11]-L[19]-L[23]],
+     [1,L[12],L[20],L[24],L[28]-L[12]-L[20]-L[24]-1]];
+
+T1:=B1^2-(L[25]*B0+(L[25]-L[1]-L[5]-L[9]-1)*B1+(L[25]-L[2]-L[6]-L[10])*B2+(L[25]-L[3]-L[7]-L[11])*B3+(L[25]-L[4]-L[8]-L[12])*B4);
+T1:=Concatenation(T1);
+
+T2:=B1*B2-(L[1]*B1+L[2]*B2+L[3]*B3+L[4]*B4);
+T2:=Concatenation(T2);
+T0:=Concatenation(T1,T2);
+
+T3:=B1*B3-(L[5]*B1+L[6]*B2+L[7]*B3+L[8]*B4);
+T3:=Concatenation(T3);
+T0:=Concatenation(T0,T3);
+
+T4:=B1*B4-(L[9]*B1+L[10]*B2+L[11]*B3+L[12]*B4);
+T4:=Concatenation(T4);
+T0:=Concatenation(T0,T4);
+
+T5:=B2^2-(L[26]*B0+(L[26]-L[1]-L[13]-L[17])*B1+(L[26]-L[2]-L[14]-L[18]-1)*B2+(L[26]-L[3]-L[15]-L[19])*B3+(L[26]-L[4]-L[16]-L[20])*B4);
+T5:=Concatenation(T5);
+T0:=Concatenation(T0,T5);
+
+T6:=B2*B3-(L[13]*B1+L[14]*B2+L[15]*B3+L[16]*B4); 
+T6:=Concatenation(T6);
+T0:=Concatenation(T0,T6);
+
+T7:=B2*B4-(L[17]*B1+L[18]*B2+L[19]*B3+L[20]*B4); 
+T7:=Concatenation(T7);
+T0:=Concatenation(T0,T7);
+
+T8:=B2*B1-B1*B2; 
+T8:=Concatenation(T8);
+T0:=Concatenation(T0,T8);
+
+T9:=B3^2-(L[27]*B0+(L[27]-L[5]-L[13]-L[21])*B1+(L[27]-L[6]-L[14]-L[22])*B2+(L[27]-L[7]-L[15]-L[23]-1)*B3+(L[27]-L[8]-L[16]-L[24])*B4); 
+T9:=Concatenation(T9);
+T0:=Concatenation(T0,T9);
+
+T10:=B3*B4-(L[21]*B1+L[22]*B2+L[23]*B3+L[24]*B4); 
+T10:=Concatenation(T10);
+T0:=Concatenation(T0,T10);
+
+T11:=B3*B1-B1*B3;
+T11:=Concatenation(T11);
+T0:=Concatenation(T0,T11);
+
+T12:=B3*B2-B2*B3;
+T12:=Concatenation(T12);
+T0:=Concatenation(T0,T12);
+
+T13:=B4^2-(L[28]*B0+(L[28]-L[9]-L[17]-L[21])*B1+(L[28]-L[10]-L[18]-L[22])*B2+(L[28]-L[11]-L[19]-L[23])*B3+(L[28]-L[12]-L[20]-L[24]-1)*B4); 
+T13:=Concatenation(T13);
+T0:=Concatenation(T0,T13);
+
+T14:=B4*B1-B1*B4;
+T14:=Concatenation(T14);
+T0:=Concatenation(T0,T14);
+
+T15:=B4*B2-B2*B4;
+T15:=Concatenation(T15);
+T0:=Concatenation(T0,T15);
+
+T16:=B4*B3-B3*B4;
+T16:=Concatenation(T16);
+T0:=Concatenation(T0,T16);
+
+#Add(T0,TraceMat(x[1]^0*B1)-(L[25]-x[1]^0));
+#Add(T0,TraceMat(x[1]^0*B2)-(L[26]-x[1]^0));
+#Add(T0,TraceMat(x[1]^0*B3)-(L[27]-x[1]^0));
+#Add(T0,TraceMat(x[1]^0*B4)-(L[28]-x[1]^0));
+
+#T:=AsSet(T0); 
+
+return T0; 
+end; 
+################################################################
+PolynomialsForCAlgebrasRank6S:=function(L)
+local B0,B1,B2,B3,B4,B5,T0,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T;
+
+B0:=IdentityMat(6);
+
+B1:=[[0,L[51],0,0,0,0],
+    [1,L[51]-L[1]-L[6]-L[11]-L[16]-1,L[1],L[6],L[11],L[16]],
+    [0,L[51]-L[2]-L[7]-L[12]-L[17],  L[2],L[7],L[12],L[17]],
+    [0,L[51]-L[3]-L[8]-L[13]-L[18],  L[3],L[8],L[13],L[18]],
+    [0,L[51]-L[4]-L[9]-L[14]-L[19],  L[4],L[9],L[14],L[19]],
+    [0,L[51]-L[5]-L[10]-L[15]-L[20],L[5],L[10],L[15],L[20]] ];
+
+B2:=[[0,0,L[52],0,0,0],
+     [0,L[1],L[52]-L[1]-L[21]-L[26]-L[31],  L[21],L[26],L[31]],
+     [1,L[2],L[52]-L[2]-L[22]-L[27]-L[32]-1,L[22],L[27],L[32]],
+     [0,L[3],L[52]-L[3]-L[23]-L[28]-L[33],  L[23],L[28],L[33]],
+     [0,L[4],L[52]-L[4]-L[24]-L[29]-L[34],  L[24],L[29],L[34]],
+     [0,L[5],L[52]-L[5]-L[25]-L[30]-L[35],  L[25],L[30],L[35]] ];
+
+B3:=[[0,0,0,L[53],0,0],
+     [0,L[6],L[21],L[53]-L[6]-L[21]-L[36]-L[41],  L[36],L[41]],
+     [0,L[7],L[22],L[53]-L[7]-L[22]-L[37]-L[42],  L[37],L[42]],
+     [1,L[8],L[23],L[53]-L[8]-L[23]-L[38]-L[43]-1,L[38],L[43]],
+     [0,L[9],L[24],L[53]-L[9]-L[24]-L[39]-L[44],  L[39],L[44]],
+     [0,L[10],L[25],L[53]-L[10]-L[25]-L[40]-L[45],L[40],L[45]] ];
+
+B4:=[[0,0,0,0,L[54],0],
+     [0,L[11],L[26],L[36],L[54]-L[11]-L[26]-L[36]-L[46],L[46]],
+     [0,L[12],L[27],L[37],L[54]-L[12]-L[27]-L[37]-L[47],L[47]],
+     [0,L[13],L[28],L[38],L[54]-L[13]-L[28]-L[38]-L[48],L[48]],
+     [1,L[14],L[29],L[39],L[54]-L[14]-L[29]-L[39]-L[49]-1,L[49]],
+     [0,L[15],L[30],L[40],L[54]-L[15]-L[30]-L[40]-L[50],L[50]] ];
+
+B5:=[[0,0,0,0,0,L[55]],
+     [0,L[16],L[31],L[41],L[46],L[55]-L[16]-L[31]-L[41]-L[46]],
+     [0,L[17],L[32],L[42],L[47],L[55]-L[17]-L[32]-L[42]-L[47]],
+     [0,L[18],L[33],L[43],L[48],L[55]-L[18]-L[33]-L[43]-L[48]], 
+     [0,L[19],L[34],L[44],L[49],L[55]-L[19]-L[34]-L[44]-L[49]],
+     [1,L[20],L[35],L[45],L[50],L[55]-L[20]-L[35]-L[45]-L[50]-1] ];
+
+T1:=B1^2-(L[51]*B0+(L[51]-L[1]-L[6]-L[11]-L[16]-1)*B1+(L[51]-L[2]-L[7]-L[12]-L[17])*B2+(L[51]-L[3]-L[8]-L[13]-L[18])*B3+(L[51]-L[4]-L[9]-L[14]-L[19])*B4+(L[51]-L[5]-L[10]-L[15]-L[20])*B5);
+T1:=Concatenation(T1);
+
+T2:=B1*B2-(L[1]*B1+L[2]*B2+L[3]*B3+L[4]*B4+L[5]*B5);
+T2:=Concatenation(T2);
+T0:=Concatenation(T1,T2);
+
+T2:=B1*B3-(L[6]*B1+L[7]*B2+L[8]*B3+L[9]*B4+L[10]*B5);
+T2:=Concatenation(T2);
+T0:=Concatenation(T0,T2);
+
+T2:=B1*B4-(L[11]*B1+L[12]*B2+L[13]*B3+L[14]*B4+L[15]*B5);
+T2:=Concatenation(T2);
+T0:=Concatenation(T0,T2);
+
+T2:=B1*B5-(L[16]*B1+L[17]*B2+L[18]*B3+L[19]*B4+L[20]*B5);
+T2:=Concatenation(T2);
+T0:=Concatenation(T0,T2);
+
+T2:=B2*B1-B1*B2; 
+T2:=Concatenation(T2); 
+T0:=Concatenation(T0,T2); 
+
+T2:=B2^2-(L[52]*B0+(L[52]-L[1]-L[21]-L[26]-L[31])*B1+(L[52]-L[2]-L[22]-L[27]-L[32]-1)*B2+(L[52]-L[3]-L[23]-L[28]-L[33])*B3+(L[52]-L[4]-L[24]-L[29]-L[34])*B4+(L[52]-L[5]-L[25]-L[30]-L[35])*B5);
+T2:=Concatenation(T2);
+T0:=Concatenation(T0,T2);
+
+T2:=B2*B3-(L[21]*B1+L[22]*B2+L[23]*B3+L[24]*B4+L[25]*B5); 
+T2:=Concatenation(T2);
+T0:=Concatenation(T0,T2);
+
+T2:=B2*B4-(L[26]*B1+L[27]*B2+L[28]*B3+L[29]*B4+L[30]*B5); 
+T2:=Concatenation(T2);
+T0:=Concatenation(T0,T2);
+
+T2:=B2*B5-(L[31]*B1+L[32]*B2+L[33]*B3+L[34]*B4+L[35]*B5); 
+T2:=Concatenation(T2);
+T0:=Concatenation(T0,T2);
+
+T2:=B3*B1-B1*B3; 
+T2:=Concatenation(T2);
+T0:=Concatenation(T0,T2);
+
+T2:=B3*B2-B2*B3; 
+T2:=Concatenation(T2);
+T0:=Concatenation(T0,T2);
+
+T2:=B3^2-(L[53]*B0+(L[53]-L[6]-L[21]-L[36]-L[41])*B1+(L[53]-L[7]-L[22]-L[37]-L[42])*B2+(L[53]-L[8]-L[23]-L[38]-L[43]-1)*B3+(L[53]-L[9]-L[24]-L[39]-L[44])*B4+(L[53]-L[10]-L[25]-L[40]-L[45])*B5); 
+T2:=Concatenation(T2);
+T0:=Concatenation(T0,T2);
+
+T2:=B3*B4-(L[36]*B1+L[37]*B2+L[38]*B3+L[39]*B4+L[40]*B5); 
+T2:=Concatenation(T2);
+T0:=Concatenation(T0,T2);
+
+T2:=B3*B5-(L[41]*B1+L[42]*B2+L[43]*B3+L[44]*B4+L[45]*B5); 
+T2:=Concatenation(T2);
+T0:=Concatenation(T0,T2);
+
+T2:=B4*B1-B1*B4;
+T2:=Concatenation(T2);
+T0:=Concatenation(T0,T2);
+
+T2:=B4*B2-B2*B4;
+T2:=Concatenation(T2);
+T0:=Concatenation(T0,T2);
+
+T2:=B4*B3-B3*B4;
+T2:=Concatenation(T2);
+T0:=Concatenation(T0,T2);
+
+T2:=B4^2-(L[54]*B0+(L[54]-L[11]-L[26]-L[36]-L[46])*B1+(L[54]-L[12]-L[27]-L[37]-L[47])*B2+(L[54]-L[13]-L[28]-L[38]-L[48])*B3+(L[54]-L[14]-L[29]-L[39]-L[49]-1)*B4+(L[54]-L[15]-L[30]-L[40]-L[50])*B5); 
+T2:=Concatenation(T2);
+T0:=Concatenation(T0,T2);
+
+T2:=B4*B5-(L[46]*B1+L[47]*B2+L[48]*B3+L[49]*B4+L[50]*B5); 
+T2:=Concatenation(T2);
+T0:=Concatenation(T0,T2);
+
+T2:=B5*B1-B1*B5; 
+T2:=Concatenation(T2);
+T0:=Concatenation(T0,T2);
+
+T2:=B5*B2-B2*B5; 
+T2:=Concatenation(T2);
+T0:=Concatenation(T0,T2);
+
+T2:=B5*B3-B3*B5; 
+T2:=Concatenation(T2);
+T0:=Concatenation(T0,T2);
+
+T2:=B5*B4-B4*B5; 
+T2:=Concatenation(T2);
+T0:=Concatenation(T0,T2);
+
+T2:=B5^2-(L[55]*B0+(L[55]-L[16]-L[31]-L[41]-L[46])*B1+(L[55]-L[17]-L[32]-L[42]-L[47])*B2+(L[55]-L[18]-L[33]-L[43]-L[48])*B3+(L[55]-L[19]-L[34]-L[44]-L[49])*B4+(L[55]-L[20]-L[35]-L[45]-L[50]-1)*B5); 
+T2:=Concatenation(T2);
+T0:=Concatenation(T0,T2);
+T0:=AsSet(T0);
+
+return T0; 
+end; 
+#################################################
